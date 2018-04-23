@@ -4,5 +4,15 @@
   "main": "index.js",
   "repository": "git@github.com:codeyashu/elect-contract.git",
   "author": "yashas <yashasycsc@outlook.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "ganache-cli": "^6.1.0",
+    "mocha": "^5.1.1",
+    "solc": "^0.4.23",
+    "truffle-hdwallet-provider": "^0.0.3",
+    "web3": "1.0.0-beta.26"
+  },
+  "scripts": {
+    "test": "mocha"
+  }
 }
