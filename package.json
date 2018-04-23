@@ -1,0 +1,8 @@
+{
+  "name": "elect-contract",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:codeyashu/elect-contract.git",
+  "author": "yashas <yashasycsc@outlook.com>",
+  "license": "MIT"
+}
