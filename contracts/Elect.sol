@@ -1,7 +1,7 @@
 pragma solidity ^0.4.22;
 
-contract vote {
-    address public manager;
+contract Elect {
+    address manager;
     address[] voters;
     uint[10] public c101;
     
@@ -9,11 +9,19 @@ contract vote {
         manager = msg.sender;
     }
     
-    function cast_vote(uint id) public non_voters {
+    function castVote(uint id) public non_voters {
         c101[id]++;
         voters.push(msg.sender);
     }
 
+    function getManager() public view returns (address) {
+        return manager;
+    }
+
+    function getVoters() public view returns (address[]) {
+        return voters;
+    }
+    
     function pickWinner() public only_manager view returns (uint) {
         uint max;
         uint winner;
@@ -25,6 +33,8 @@ contract vote {
         }
         return winner;
     }
+
+
 
     modifier non_voters {
         uint flag = 0;

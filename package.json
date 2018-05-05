@@ -1,7 +1,7 @@
 {
   "name": "elect-contract",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "compile.js",
   "repository": "git@github.com:codeyashu/elect-contract.git",
   "author": "yashas <yashasycsc@outlook.com>",
   "license": "MIT",
@@ -11,6 +11,9 @@
     "solc": "^0.4.23",
     "truffle-hdwallet-provider": "^0.0.3",
     "web3": "1.0.0-beta.26"
+  },
+  "directories": {
+    "test": "test"
   },
   "scripts": {
     "test": "mocha"
