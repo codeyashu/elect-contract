@@ -4,7 +4,7 @@ const assert = require('assert');
 const ganache = require('ganache-cli');
 const Web3 = require('web3');
 const web3 = new Web3(ganache.provider());
-const { interface, bytecode } = require('../compile');
+const { interface, bytecode } = require('../compile/compileElect');
 
 let elect;
 let accounts;
@@ -20,7 +20,7 @@ beforeEach(async () => {
         })
 })
 
-describe('Elect -- Smart contract', () => {
+describe('Elect-- Smart contract', () => {
 
     it('deploys the contract', () => {
         assert.ok(elect.options.address);
