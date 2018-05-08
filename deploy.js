@@ -2,7 +2,7 @@
 
 const HDWalletProvider = require('truffle-hdwallet-provider');
 const Web3 = require('web3');
-const { interface, bytecode } = require('./compile/compileStorage');
+const { interface, bytecode } = require('./compile/compileElect');
 
 // Provider requires metamask mnemonic and a node in the network.
 // Here infura is used. Sign up at infura.io
