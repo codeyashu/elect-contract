@@ -1,4 +1,4 @@
-// Test cases for Storage Contract
+/* // Test cases for Storage Contract
 
 const assert = require('assert');
 const ganache = require('ganache-cli');
@@ -36,4 +36,4 @@ describe('Storage-- Smart contract', () => {
         console.log(status);
         assert(1, electoralList.length);
     })
-})
+}) */
