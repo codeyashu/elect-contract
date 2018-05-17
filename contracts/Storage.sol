@@ -3,35 +3,46 @@
 pragma solidity ^0.4.22;
 
 contract Storage {
+    address manager;
     
     struct Voter {
         string voterId;
-        // bool status;
     }
     
-    address[] ElectoralAcc;
-
     mapping (address => Voter) Electoral;
+    address[] ElectoralAcc;
     
-    function registerOnce (address _addr, string _id) public onlyOnce(_addr) {
-        Electoral[_addr].voterId = _id;
-        ElectoralAcc.push(_addr);
+    string[] VoterAcc;
+
+    constructor () public {
+        manager = msg.sender;
     }
 
-    function registerAgain (address _addr, string _id) public {
-        Electoral[_addr].voterId = _id;
-        ElectoralAcc.push(_addr);
+    function getManager () view public returns (address) {
+        return manager;
     }
-
+    
+    function registerOnce (address _addr, string _vid) public oneAddress(_addr) oneVoterId(_vid) {
+        ElectoralAcc.push(_addr);
+        VoterAcc.push(_vid);
+        Electoral[_addr].voterId = _vid;
+    }
+    
+    function registerAgain (address _addr, string _vid) public {
+        ElectoralAcc.push(_addr);
+        VoterAcc.push(_vid);
+        Electoral[_addr].voterId = _vid;
+    }
+    
     function deleteVoter (address _addr) public {
         delete Electoral[_addr];
     }
-
-    function getElectoral() view public returns (address[]) {
+    
+    function getElectoral () view public returns (address[]) {
         return ElectoralAcc;
     }
-    
-    function countElectoral() view public returns (uint) {
+
+    function getElectoralCount () view public returns (uint) {
         return ElectoralAcc.length;
     }
     
@@ -39,17 +50,29 @@ contract Storage {
         return (Electoral[_addr].voterId);
     }
     
-    function checkElectoral (address _addr, string _id) view public returns (bool) {
-        if (keccak256(Electoral[_addr].voterId) == keccak256(_id)) {
+    function checkElectoral (address _addr, string _vid) view public returns (bool) {
+        if (keccak256(abi.encodePacked(Electoral[_addr].voterId)) == keccak256(abi.encodePacked(_vid))) {
             return true;
         }
         return false;
     }
 
-    modifier onlyOnce(address _addr) {
+    modifier oneAddress (address _addr) {
         uint flag = 0;
         for (uint i = 0; i < ElectoralAcc.length; i++) {
             if (ElectoralAcc[i] == _addr) {
+                flag = 1;
+                break;
+            }
+        }
+        require(flag == 0);
+        _;
+    }
+    
+    modifier oneVoterId (string _vid) {
+        uint flag = 0;
+        for (uint i = 0; i < VoterAcc.length; i++) {
+            if (keccak256(abi.encodePacked(VoterAcc[i])) == keccak256(abi.encodePacked(_vid))) {
                 flag = 1;
                 break;
             }
