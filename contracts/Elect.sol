@@ -1,6 +1,16 @@
 pragma solidity ^0.4.22;
 
+contract Storage {
+    function getElectoral() returns (address[]) {}
+    function getElectoralCount() returns (uint) {}
+    function getVoterId (address _addr) returns (string) {}
+    function checkElectoral (address _addr, string _vid) returns (bool) {}
+}
+
 contract Elect {
+    address storageAddr = 0x58337Fb6817910542e5D1fEe1aAe257cc8b27855;
+    Storage _sto = Storage(storageAddr);
+
     address manager;
 
     struct Votes {
@@ -27,12 +37,16 @@ contract Elect {
     mapping (address => Party) Verify;
     address[] voters;
     
-    constructor() public {
+    constructor () public {
         manager = msg.sender;
         for(uint i=301; i<310; i++) {
             constituencies.push(i);
             Constituency[i] = Votes(0,0,0);
         }
+    }
+
+    function checkE (address _addr, string _vid) public returns (bool) {
+        return _sto.checkElectoral(_addr, _vid);
     }
     
     function getManager () view public returns (address) {
@@ -47,15 +61,17 @@ contract Elect {
         return constituencies.length;
     }
     
-    function castVote (uint _cid, uint _pid) public non_voters {
-        voters.push(msg.sender);
-        Verify[msg.sender].pid = _pid;
-        if (_pid == 1)
-            Constituency[_cid].p1++;
-        else if (_pid == 2)
-            Constituency[_cid].p2++;
-        else if (_pid == 3)
-            Constituency[_cid].p3++;
+    function castVote (uint _cid, uint _pid, string _vid) public non_voters {
+        if (checkE(msg.sender, _vid)) {
+            voters.push(msg.sender);
+            Verify[msg.sender].pid = _pid;
+            if (_pid == 1)
+                Constituency[_cid].p1++;
+            else if (_pid == 2)
+                Constituency[_cid].p2++;
+            else if (_pid == 3)
+                Constituency[_cid].p3++;
+        }
     }
     
     function verifyVote (address _addr) view public returns (uint) {
