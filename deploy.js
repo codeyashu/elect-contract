@@ -8,7 +8,7 @@ const { interface, bytecode } = require('./compile/compileElect');
 // Here infura is used. Sign up at infura.io
 const provider = new HDWalletProvider(
     'unusual donor select sell raccoon office chapter miracle damage razor success become',
-    'https://rinkeby.infura.io/mtFwL2yHZw0Vg9DawLnw'
+    'https://rinkeby.infura.io/f4u1DhBHIPWi32X0yl12'
 );
 
 const web3 = new Web3(provider);

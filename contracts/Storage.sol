@@ -1,4 +1,4 @@
-// Storing Eth Address and its Voter ID
+// Storing Ethereum Address and its Voter ID
 
 pragma solidity ^0.4.22;
 
